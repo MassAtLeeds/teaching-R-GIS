@@ -1,0 +1,175 @@
+---
+title: 'Teaching command-line GIS to diverse groups: problems, solutions and lessons
+  learned'
+author: ''
+date: "12/14/2014"
+output:
+  pdf_document:
+    toc: yes
+bibliography: R.bib
+---
+
+```{r,echo=FALSE}
+# Lovelace R1 and Oldroyd R1
+#  1Centre for Spatial Analysis and Policy, University of Leeds
+# October, 2014
+```
+
+\newpage
+
+# Abstract 
+
+R is increasingly recognised as mature Geographic Information System (GIS), yet its use is still rare for spatial analysis in academia. Contributing factors include its Command Line Interface (CLI) and the steep learning curve associated with the language. Thousands of potential users are discouraged from harnessing R’s capabilities as they believe it is difficult to learn. In an attempt to raise awareness of R’s spatial capabilities and dispel the negative image associated with the software, a teaching team based at the University of Leeds repeatedly delivered a day-long workshop over the period of one year. This workshop was delivered through the Geospatial Analysis and Simulation (TALISMAN) project, funded by the UK’s Economic and Social Research Council (ESRC) via the National Centre for Research Methods (NCRM), and proved to be extremely popular. Based on teaching experiences and formal feedback, the workshop materials were incrementally improved over the one year period. These improvements were based on an understanding that R skills are developed through 'experiential learning' and a number of measures were introduced to facilitate this process. Clarity of explanation, frequently worked examples and real-time implementation of code were found to improve the learning experience. The findings should be of interest to anyone involved in communicating computer code to beginners and the resulting materials and guidance will be of practical use for others teaching R for spatial applications.
+
+KEYWORDS: GIS, R, Spatial Analysis, Education
+
+# Introduction
+
+R is a fast and flexible open-source programming language and data environment
+[@Ihaka1996]. It is widely accepted among the statistical community as an open-source alternative to proprietary systems such as SPSS and Stata. Despite R’s acceptance among the quantitative disciples, it remains relatively unpopular in the social sciences, especially geography. This unpopularity is somewhat surprising considering the number of advanced spatial packages that have emerged in recent years.
+
+With the emergence of these spatial packages, R has become an established alternative to conventional Geographical Information Systems. The features, performance and graphics that these packages provide now rival the spatial analysis tools present in market-leading GIS software suites such as QGIS and ArcGIS [@bivand2008applied]. Despite the progression of R's spatial capabilities, the software is used relatively infrequently by geographers and social scientists. This is due to a number reasons:
+
+- Users are simply unaware that R can function as a GIS.
+- The 'scary' command line-based interface.
+- R’s reputation as being difficult to learn.
+- The dominance of proprietary GIS products and their resulting familiarity.
+
+To the majority of computer users, the Command Line Interface (CLI) is an alien concept. The prospect of using a tool which only responds to typed commands is unfamiliar to the modern day user and the majority of social scientists prefer to "point and click their way throgh life" [@sherman2008desktop, P. 283] . However once a familiarity with the CLI is gained, the benefits of using R, compared to other Graphical User Interface (GUI) based programs, become clear, in terms of:
+                   
+- Ease of reproducibility, including borrowing and building on the work of others.
+- Speed of undertaking batch processes: a single script can perform the same     process on many files with little or no modification.
+- Advanced and highly customisable graphical capabilities, which can empower the     user to visualise data in new ways (e.g. faceted plots and animations) to produce compelling and publishable outputs.
+- Highly extensible environment with over 6800 additional libraries from the Comprehensive R Archive Network (CRAN). 
+    
+In short, R has proved itself as an integrated tool for processing, modelling and mapping geographical data, but this has yet to translate into widespread uptake by social scientists and geographers. In recognition of these benefits there is growing interest in R for spatial data, yet little in the way of practical material. To meet this demand and fill a gap in the market a 1 day workshop was developed. This workshop focussed on introducing R as an all-round tool for spatial analysis. A secondary aim was to help overcome the afforementioned barriers to R wider uptake as a GIS, via a number of measures. These included
+
+- Increasing user confidence with R's CLI.
+- Demonstrating the advantages of R over conventional GIS software.
+- Providing users with the skills needed to find help and solve problems on their own.
+
+# The case study
+              
+The course was funded by the Economic and Social Research Council (ESRC) via the TALISMAN project on the *development* and *dissemination* of new methods in spatial analysis and modelling. The R course was developed to meet the latter of these objectives, in recognition that software is often a barrier preventing the implementation of new methods. However, the focus was introductory: building strong foundations that would allow attendees to implement their own custom solutions, rather than teaching specific advanced methods.
+
+The aim of the Introductory R for Spatial Analysis (IRSA) workshop was to teach users R's functionality for rocessing, analysing and visualising spatial data. 7 courses were delivered to approximately 180 participants between the period of November 2013 and November 2014 and informed changes were made to the teaching material and delivery of the workshop throughout this period. Formal feedback was collected from 80 participants during 5 of the courses. The remaining 2 courses were delivered to non-native English speakers as part of international conferences and formal feedback was not collected. The full list of courses can be seen in Table 1. 
+
+
+Table 1. R courses delivered between November 2013 and November 2014 
+
+```{r, echo=FALSE}
+library(knitr)
+kable(read.csv("data/courses.csv"))
+```
+
+## Material Development               
+
+A well-known issue associated with developing training workshops is deciding the level at which to pitch the materials. Although the IRSA workshop was advertised as 'Introductory' workshop, it was found that participants with widely varying skills and experiences with R registered for the event. The participants ranged from people who were proficient in R and who had a background in spatial data analysis to those who had no experience working with spatial data or R. Intermediary attendess included people experienced with spatial data but who had not used R before and proficient R users wanting to learn how to use the software to analyse spatial data. To circumvent the issues arising from this diversity of participant backgrounds, we initially used the beginning of an existing tutorial named 'A short Introduction to R' [@Harris2012] to provide an overview of the language using the metaphor of a 'giant calculator'. @Harris2012 introduces R’s basic syntax and functionality. A more spatially-inclined tutorial would then be written for the second half of the workshop.
+We agreed to deliver short lectures at the beginning of each tutorial to introduce the materials. The students would then work independently under the supervision of course demonstrators. 
+
+An associated problem is the amount of material to try to cover. This is especially difficult to assess when students are working independently. There are two main approaches which can be taken to deal with this.
+
+- Approach 1: provide an given an excess of material, providing a wide knowledge base in a shorter period of time.
+- Approach 2: covering a small amount of material meticulously.
+
+The problem with the first approach is that less confident students can feel overwhelmed and feel the necessity to complete the materials in the time provided. However, as the students were paying for the workshop, taking the second approach may lead to dissatisfaction.
+
+From the first course it became clear that striking a balance between the provision of a satisfactory experience for the more competent participants while not overwhelming the less-competent participants would be a major challenge. In  this context providing an excess of material can be beneficial, providing a challenge to more experienced users during the cource and the benefits of additional resources can be worked through at home for those who do not complete everything. It was made clear that not all participants were expected to finish all of the material to prevent less confident participants feeling out-of-depth. 
+
+After the first two sessions we decided to add 'some experience with R' as a prerequisite for attending the course. This also allowed us to implement the first approach and justified the provision of 2 sets of materials in the initial courses: one to work through in the morning and one to work through in the afternoon. 
+
+The afternoon session made use of a purpose-written tutorial which can be found at: www.github.com/rlovelave/Creating-Maps-in-R. This tutorial soon became the focus of the courses and major changes were implemented over the year period. To explain these changes in context the next section outlines the problems experienced during the initial run of the course. 
+
+```{r, echo=FALSE}
+# TODO: mention eperiential learning earlier
+```
+
+
+## Creating opportunities for experiential learning
+
+The experiential learning process or ‘hands on learning’ is widely regarded as the most effective approach for teaching practical disciplines such as computer programming [@kolb1984experiential]. This approach should therefore, in theory, be ideal for teaching students to use R as a command line GIS. @kolb1984experiential suggested that, to gain the most out of the learning experience, a student must transcend through 4 distinct stages of the learning cycle: doing, reflecting, concluding and planning. In line with this theory, it was decided that the day-long introductory R courses would be taught in two halves. During the morning, participants were introduced to basic R functions and syntax. During the afternoon, the content became more applied, with the focus shifting to visualisation. Both the morning and afternoon sessions were introduced by a short lecture, followed by a longer independent practical session, whereby the participants would independently follow a printed tutorial. Demonstrators provided assistance throughout.  however it was soon realised that this structure was not particularly suitable for beginners. The practical aspect of the course was too long and more face to face support was required. 
+
+```{r, echo=FALSE}
+# TODO below: add reference in place of ...
+```
+
+
+To facilitate this process, the teaching style which was adopted involved short ‘lecture’ style talks, whereby the participants listened to basic concepts and examples, followed by a hands on practical task. Based on theory (...) it was assumed that the alternation of listening and doing would allow the link between underlying theory and practical work to be consolidated. The participant would be introduced to a process, given the opportunity to attempt the process individually, followed by a discussion with either the course presenter following the task. This structure pertained to be particularly effective at encouraging participants to engage with the four stages of the experiential learning cycle and provided a successful learning environment. 
+
+It is essential that the practical sessions are informal, putting the participants at ease to ask questions and participate in discussions with the session demonstrators. During the practical aspects of the course, given that the class size permits, an idea of the level of individual’s understanding can be gaged based on the types of questions being asked and the speed of progression through the materials. Demonstrators provided extra support for participants progressing at a slower rate and guide the more capable students towards extension tasks provided. 
+
+It is the role of the demonstrator to guide participants through the four stages of the learning process by utilising effective questioning, allowing the students to critically reflect upon the processes they adopted and the reasoning behind them. 
+
+A well-defined problem (), experienced by any course presenter, is at which level to pitch the materials. Although the majority of the courses we ran were aimed at beginners, the category ‘beginner’ included a variety of participants whom we can be considered as being in one of 3 categories. These were:
+
+- Complete beginners who have never used R, do not program, and have little experience of using spatial data.
+- Experienced R users who do not work with spatial data.
+- Participants who frequently work with spatial data but have never used R. 
+
+# Methods of evaluation
+
+The methods used to evaluate our performance throughout the series of courses ranged from quantitative feedback from attendees to informal discussion with other demonstrators and teaching professionals…
+
+# Results
+
+The overall ratings of the course were good, with an average score of 4.43 from a maximum value of 5 across all 4 likert scales. However, the average score varied markedly from one course to the next and depending on the criteria participants were rating on (figure xx).
+
+
+Figure xx: The average Likert  rating of courses by 4 evaluation criteria.
+
+
+In terms of the pace at which the courses progressed, we seemed to have struck a good balance overall, with 78% of all respondents reporting the “speed of presentation” as “about right”. 9.9 and 7.8% thought the course was “a bit too slow” and “a bit too fast”, respectively, implying that we could have increased the pace of delivery in certain areas without losing people. The distribution of these values changed slightly from course to course, as illustrated in figure xx.
+
+
+
+Figure xx: Ratings for the speed of delivery, from “too slow” to “too fast”
+
+Although it is clear that the majority of participants in all courses thought the speed of delivery was about right, the latter two courses were rated as “a bit too slow” by more than 10% of participants, perhaps an artefact of a conscious effort not to loose the slower students following previous feedback.
+
+# Problems, solutions and lessons learned
+
+This section describes some of the issues encountered and how they were overcom
+
+With such diverse audiences, it soon became apparent that there would be
+Getting left behind
+A specific and highly problematic instance of the wider problem of different learning rates was people getting left behind, to the point where they became frustrated. This problem was particularly apparent for the more advanced AdvR and SMS courses, which is unsurprising due to the more challenging nature of the content.
+
+### Technical hitches
+
+### Confusion caused by R’s command-line interface
+
+### Lack of understanding of the data
+
+### Different learning rates and styles
+
+### Getting left behind
+
+
+- consistency
+- visualise data (in SPSS/excel or QGIS depending upon participants background )
+- Allow time for questions
+- Quality, not quantity - students prefer to take the time to complete tasks and ask questions rather than typing like a robot. - add quote!
+- Extension tasks for more competent participants
+- Additional resources for less competent participants 
+- Lots of demonstrators 
+
+# Conclusions
+
+**Opportunities for open access teaching**
+
+
+# References
+
+```{r, echo=FALSE}
+# TODO: integrate these:
+# Out-takes
+# 
+# realised we were covering too much ground - pace was too fast for beginner, literally halved content. 
+# Originally introduced R in the morning session and R studio in the afternoon, but we realised R studio has a number of built in functions to help beginners. 
+# 
+# Ideas
+# Graphs showing change over time and type (uni/etc) of participants
+# Diagram of 4 stages (Rachel)
+# 
+# Include ‘innovations’: GitHub = innovative, link to 52 degrees talk.
+```
